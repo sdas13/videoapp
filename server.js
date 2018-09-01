@@ -1,12 +1,13 @@
 const express=require('express');
 const bodyParser=require('body-parser');
+const cors=require('cors');
 var mongoose = require('mongoose');
 var video = require('./video');
 const app=express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cors());
 mongoose.connect('mongodb://admin:admin123@ds139992.mlab.com:39992/videoappdb');
 
 var router = express.Router();
@@ -29,11 +30,11 @@ router.get('/fetch',(req,res)=>{
 router.post('/create',(req,res)=>{
 	console.log('create',req.body)
 	var v=new video();
-	v.id=req.body.Id;
-	v.title=req.body.Title;
-	v.length=req.body.Length;
-	v.category=req.body.Category;
-	v.format=req.body.Format;
+	v.Id=req.body.Id;
+	v.Title=req.body.Title;
+	v.Length=req.body.Length;
+	v.Category=req.body.Category;
+	v.Format=req.body.Format;
 	v.save(function(err){
 		if(err)
 			res.send(err)
@@ -49,11 +50,11 @@ router.put('/update',(req,res)=>{
         if (err) {
             res.send(err);
         }
-        v.id=req.body.Id;
-		v.title=req.body.Title;
-		v.length=req.body.Length;
-		v.category=req.body.Category;
-		v.format=req.body.Format;
+	        v.Id=req.body.Id;
+		v.Title=req.body.Title;
+		v.Length=req.body.Length;
+		v.Category=req.body.Category;
+		v.Format=req.body.Format;
         v.save(function (err) {
             if (err)
                 res.send(err);
